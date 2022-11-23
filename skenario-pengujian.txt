@@ -1,0 +1,35 @@
+Skenario Test Repository:
+1. Login Repository Test:
+    - login gagal karena email atau password salah
+    - login gagal karena dengan email dan password kosong
+    - login berhasil
+2. Register Repository Test:
+    - register gagal karena email sudah terdaftar
+    - register berhasil
+
+Skenario Test View Model:
+1. Login View Model Test
+    - login gagal karena email atau password salah
+    - login gagal karena dengan email dan password kosong
+    - login berhasil
+2. Register View Model Test:
+    - register gagal karena email sudah terdaftar
+    - register berhasil
+3. Add Story View Model Test:
+    - berhasil upload story
+    - berhasil upload story dengan lokasi
+4. Detail View Model Test:
+    - gagal mengambil data detail karena token tidak ada
+    - berhasil mengambil data detail
+5. Maps View Model Test:
+    - gagal mengambil data lokasi karena token salah
+    - berhasil mengambil data lokasi
+6. Home View Model Test:
+    - berhasil mengambil story dengan pagination
+7. User Token View Model Test:
+    - set token sukses
+    - get token sukses
+    - remove token sukses
+8. Dark Setting View Model Test:
+    - set dark mode sukses
+    - get dark mode sukses
