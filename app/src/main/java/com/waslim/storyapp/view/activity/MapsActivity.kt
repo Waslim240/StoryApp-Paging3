@@ -83,7 +83,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         }
                     }
                 }
-                mapsViewModel.getStoryWithLocation(token, Constants.LOCATION)
+                mapsViewModel.getStoryWithLocation(Constants.BEARER + token, Constants.LOCATION)
             } else -> showToast(getString(R.string.un_authorization))
         }
     }

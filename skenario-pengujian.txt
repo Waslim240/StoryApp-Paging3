@@ -1,35 +1,105 @@
 Skenario Test Repository:
-1. Login Repository Test:
-    - login gagal karena email atau password salah
-    - login gagal karena dengan email dan password kosong
-    - login berhasil
+1. LoginRepositoryTest:
+ a. Ketika proses login berhasil
+    - Memastikan mengembalikan Result.Success
+ b. Ketika proses login gagal karena email atau password kosong
+    - Memastikan mengembalikan Result.Failure
+ b. Ketika proses login gagal karena email atau password salah
+    - Memastikan mengembalikan Result.Failure
+
 2. Register Repository Test:
-    - register gagal karena email sudah terdaftar
-    - register berhasil
+ a. Ketika proses register berhasil
+    - Memastikan mengembalikan Result.Success
+ b. Ketika proses register gagal
+    - Memastikan mengembalikan Result.Failure
 
 Skenario Test View Model:
 1. Login View Model Test
-    - login gagal karena email atau password salah
-    - login gagal karena dengan email dan password kosong
-    - login berhasil
+ a. Ketika proses login berhasil
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Success
+    - Memastikan data sesuai yang diharapkan
+ b. Ketika proses login gagal karena email atau password salah
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Failure
+    - Memastikan data sesuai yang diharapkan
+ c. Ketika proses login gagal karena email atau password kosong
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Failure
+    - Memastikan data sesuai yang diharapkan
+
 2. Register View Model Test:
-    - register gagal karena email sudah terdaftar
-    - register berhasil
+ a. Ketika proses register berhasil
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Success
+    - Memastikan data sesuai yang diharapkan
+ b. Ketika proses register gagal
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Failure
+    - Memastikan data sesuai yang diharapkan
+
 3. Add Story View Model Test:
-    - berhasil upload story
-    - berhasil upload story dengan lokasi
+ a. Ketika proses menambahkan story baru berhasil
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Success
+    - Memastikan data sesuai yang diharapkan
+ b. Ketika proses menambahkan story baru dengan lokasi berhasil
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Success
+    - Memastikan data sesuai yang diharapkan
+
 4. Detail View Model Test:
-    - gagal mengambil data detail karena token tidak ada
-    - berhasil mengambil data detail
+ a. Ketika proses mengambil data detail berhasil
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Success
+    - Memastikan data sesuai yang diharapkan
+ b. Ketika proses mengambil data detail gagal
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Failure
+    - Memastikan data sesuai yang diharapkan
+
 5. Maps View Model Test:
-    - gagal mengambil data lokasi karena token salah
-    - berhasil mengambil data lokasi
+ a. Ketika proses mengambil data story dengan lokasi berhasil
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Success
+    - Memastikan data sesuai yang diharapkan
+ b. Ketika proses mengambil data story dengan lokasi gagal
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Failure
+    - Memastikan data sesuai yang diharapkan
+
 6. Home View Model Test:
-    - berhasil mengambil story dengan pagination
+ a. Ketika proses mengambil data story dengan paging3 berhasil
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan mengembalikan Result.Success
+    - Memastikan data sesuai yang diharapkan
+
 7. User Token View Model Test:
-    - set token sukses
-    - get token sukses
-    - remove token sukses
+ a. Ketika proses menyimpan data token user
+    - Memastikan suatu fungsi terpanggil
+ b. Ketika proses berhasil mengambil data token user
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan data sesuai yang diharapkan
+ c. Ketika proses berhasil menghapus data token user
+    - Memastikan suatu fungsi terpanggil
+
 8. Dark Setting View Model Test:
-    - set dark mode sukses
-    - get dark mode sukses
+ a. Ketika proses berhasil menyimpan data mode dark
+    - Memastikan suatu fungsi terpanggil
+ b. Ketika proses berhasil mengambil data mode dark
+    - Memastikan suatu fungsi terpanggil
+    - Memastikan data tidak null
+    - Memastikan data sesuai yang diharapkan

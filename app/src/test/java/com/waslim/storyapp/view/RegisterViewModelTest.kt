@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.waslim.storyapp.DataDummy
 import com.waslim.storyapp.MainCoroutinesRule
+import com.waslim.storyapp.getOrAwaitValue
 import com.waslim.storyapp.model.Result
 import com.waslim.storyapp.model.response.register.RegisterResponse
 import com.waslim.storyapp.repository.RegisterRepository
@@ -15,8 +16,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
+import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 
 @ExperimentalCoroutinesApi
@@ -53,15 +53,13 @@ class RegisterViewModelTest {
         ).thenReturn(expected.value)
 
         registerViewModel.registerUser(name, "waslim2@gmail.com", password)
-        registerViewModel.register.observeForever{
-            when(it) {
-                is Result.Success -> {
-                    assertNotNull(it.data)
-                    assertEquals(dummyResponse, it.data)
-                }
-                else -> {}
-            }
-        }
+
+        val actual = registerViewModel.register.getOrAwaitValue()
+
+        verify(fakeRepository).registerUser(name, "waslim2@gmail.com", password)
+        assertNotNull(actual)
+        assertTrue(actual is Result.Success)
+        assertEquals(dummyResponse, (actual as Result.Success).data)
     }
 
     @Test
@@ -74,15 +72,13 @@ class RegisterViewModelTest {
         ).thenReturn(expected.value)
 
         registerViewModel.registerUser(name, email, password)
-        registerViewModel.register.observeForever{
-            when(it) {
-                is Result.Failure -> {
-                    assertNotNull(it.message)
-                    assertEquals("error", it.message)
-                }
-                else -> {}
-            }
-        }
+
+        val actual = registerViewModel.register.getOrAwaitValue()
+
+        verify(fakeRepository).registerUser(name, email, password)
+        assertNotNull(actual)
+        assertTrue(actual is Result.Failure)
+        assertEquals("error", (actual as Result.Failure).message)
     }
 
 }

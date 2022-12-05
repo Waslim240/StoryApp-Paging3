@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.waslim.storyapp.DataDummy
 import com.waslim.storyapp.MainCoroutinesRule
+import com.waslim.storyapp.getOrAwaitValue
 import com.waslim.storyapp.model.Result
 import com.waslim.storyapp.model.response.story.GetAllStoryResponse
 import com.waslim.storyapp.repository.MapsRepository
@@ -15,8 +16,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -38,45 +38,41 @@ class MapsViewModelTest {
 
     @Before
     fun setup() {
-        fakeRepository = Mockito.mock(MapsRepository::class.java)
+        fakeRepository = mock(MapsRepository::class.java)
         mapsViewModel = MapsViewModel(fakeRepository)
     }
 
     @Test
     fun `Failed to get story with location`() = runTest {
-        val actual = MutableLiveData<Result<GetAllStoryResponse>>()
-        actual.value = Result.Failure("error")
+        val expected = MutableLiveData<Result<GetAllStoryResponse>>()
+        expected.value = Result.Failure("error")
 
-        `when`(fakeRepository.getStoryWithLocation("token_salah", location)).thenReturn(actual.value)
+        `when`(fakeRepository.getStoryWithLocation("token_salah", location)).thenReturn(expected.value)
 
         mapsViewModel.getStoryWithLocation("token_salah", location)
-        mapsViewModel.maps.observeForever {
-            when(it) {
-                is Result.Failure -> {
-                    assertNotNull(it.message)
-                    assertEquals("error", it.message)
-                }
-                else -> {}
-            }
-        }
+
+        val actual = mapsViewModel.maps.getOrAwaitValue()
+
+        verify(fakeRepository).getStoryWithLocation("token_salah", location)
+        assertNotNull(actual)
+        assertTrue(actual is Result.Failure)
+        assertEquals("error", (actual as Result.Failure).message)
     }
 
     @Test
     fun `Success to get story with location`() = runTest {
-        val actual = MutableLiveData<Result<GetAllStoryResponse>>()
-        actual.value = Result.Success(dummyResponse)
+        val expected = MutableLiveData<Result<GetAllStoryResponse>>()
+        expected.value = Result.Success(dummyResponse)
 
-        `when`(fakeRepository.getStoryWithLocation(token, location)).thenReturn(actual.value)
+        `when`(fakeRepository.getStoryWithLocation(token, location)).thenReturn(expected.value)
 
         mapsViewModel.getStoryWithLocation(token, location )
-        mapsViewModel.maps.observeForever {
-            when(it) {
-                is Result.Success -> {
-                    assertNotNull(it.data)
-                    assertEquals(dummyResponse, it.data)
-                }
-                else -> {}
-            }
-        }
+
+        val actual = mapsViewModel.maps.getOrAwaitValue()
+
+        verify(fakeRepository).getStoryWithLocation(token, location)
+        assertNotNull(actual)
+        assertTrue(actual is Result.Success)
+        assertEquals(dummyResponse, (actual as Result.Success).data)
     }
 }

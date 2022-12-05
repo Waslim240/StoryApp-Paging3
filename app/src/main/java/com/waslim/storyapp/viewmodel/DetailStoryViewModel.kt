@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.waslim.storyapp.model.Constants
 import com.waslim.storyapp.model.Result
 import com.waslim.storyapp.model.response.story.Story
 import com.waslim.storyapp.repository.DetailStoryRepository
@@ -21,7 +20,7 @@ class DetailStoryViewModel @Inject constructor(private val detailStoryRepository
     fun getDetailStory(token: String, id: String) {
         _detailStories.value = Result.Loading
         viewModelScope.launch {
-            _detailStories.value = detailStoryRepository.getDetailStory(Constants.BEARER + token, id)
+            _detailStories.value = detailStoryRepository.getDetailStory(token, id)
         }
     }
 

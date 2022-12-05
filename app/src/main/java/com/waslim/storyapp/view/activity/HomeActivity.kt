@@ -75,7 +75,7 @@ class HomeActivity : AppCompatActivity() {
     private fun checkToken() = userTokenViewModel.getToken().observe(this) {
         when {
             it != "" -> {
-                homeViewModel.getAllStories(it).observe(this) { data ->
+                homeViewModel.getAllStories(Constants.BEARER + it).observe(this) { data ->
                     if (data != null) adapterListStory.submitData(lifecycle, data)
                     else showToast(getString(R.string.gagal_memuat_data))
                 }

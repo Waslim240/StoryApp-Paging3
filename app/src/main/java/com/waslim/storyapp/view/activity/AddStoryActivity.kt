@@ -273,7 +273,7 @@ class AddStoryActivity : AppCompatActivity() {
                 userTokenViewModel.getToken().observe(this) { token ->
                 when {
                     token != "" -> addStoryViewModel.addNewStoryWithLocation(
-                        token,
+                        Constants.BEARER + token,
                         imageMultipart,
                         description,
                         lat,
@@ -286,7 +286,7 @@ class AddStoryActivity : AppCompatActivity() {
                 userTokenViewModel.getToken().observe(this) { token ->
                 when {
                     token != "" -> addStoryViewModel.addNewStory(
-                        token,
+                        Constants.BEARER + token,
                         imageMultipart,
                         description
                     )

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.waslim.storyapp.R
 import com.waslim.storyapp.databinding.ActivityDetailBinding
+import com.waslim.storyapp.model.Constants
 import com.waslim.storyapp.model.Result
 import com.waslim.storyapp.model.response.story.Story
 import com.waslim.storyapp.model.showToast
@@ -87,7 +88,7 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         }
-        detailViewModel.getDetailStory(token, id)
+        detailViewModel.getDetailStory(Constants.BEARER + token, id)
     }
 
     private fun maps() = startActivity(Intent(this, MapsActivity::class.java))

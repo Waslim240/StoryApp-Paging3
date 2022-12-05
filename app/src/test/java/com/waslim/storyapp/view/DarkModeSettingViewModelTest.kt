@@ -9,7 +9,7 @@ import com.waslim.storyapp.repository.DarkModeSettingRepository
 import com.waslim.storyapp.viewmodel.DarkModeSettingViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -47,15 +47,17 @@ class DarkModeSettingViewModelTest {
 
     @Test
     fun `get Theme Setting Success`() {
-        val actual = MutableLiveData<Boolean>()
-        actual.value = true
+        val expected = MutableLiveData<Boolean>()
+        expected.value = theme
 
-        `when`(fakeRepository.getThemeSetting()).thenReturn(actual.asFlow())
-        darkModeViewModel.getThemeSetting().getOrAwaitValue()
+        `when`(fakeRepository.getThemeSetting()).thenReturn(expected.asFlow())
+
+        val actual = darkModeViewModel.getThemeSetting().getOrAwaitValue()
 
         verify(fakeRepository).getThemeSetting()
 
-        assertEquals(theme, actual.value)
+        assertNotNull(actual)
+        assertEquals(theme, actual)
     }
 
 }

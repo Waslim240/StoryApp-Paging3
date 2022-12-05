@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.waslim.storyapp.DataDummy
 import com.waslim.storyapp.MainCoroutinesRule
+import com.waslim.storyapp.getOrAwaitValue
 import com.waslim.storyapp.model.Result
 import com.waslim.storyapp.model.response.login.LoginResponse
 import com.waslim.storyapp.repository.LoginRepository
@@ -48,35 +49,31 @@ class LoginViewModelTest {
         `when`(fakeRepository.loginUser(email, password)).thenReturn(expected.value)
 
         loginViewModel.loginUser(email, password)
-        loginViewModel.loginUser.observeForever{
-            when(it) {
-                is Result.Success -> {
-                    assertNotNull(it.data)
-                    assertEquals(dummyLoginResponse, it.data)
-                }
-                else -> {}
-            }
-        }
+
+        val actual = loginViewModel.loginUser.getOrAwaitValue()
+
+        verify(fakeRepository).loginUser(email, password)
+        assertNotNull(actual)
+        assertTrue(actual is Result.Success)
+        assertEquals(dummyLoginResponse, (actual as Result.Success).data)
     }
 
     @Test
     fun `Login with wrong email or password`() = runTest {
-        val actual = MutableLiveData<Result<LoginResponse>>()
-        actual.value = Result.Failure("error")
+        val expected = MutableLiveData<Result<LoginResponse>>()
+        expected.value = Result.Failure("error")
 
         `when`(
-            fakeRepository.loginUser(email, "salah")).thenReturn(actual.value)
+            fakeRepository.loginUser(email, "salah")).thenReturn(expected.value)
 
         loginViewModel.loginUser(email, "salah")
-        loginViewModel.loginUser.observeForever {
-            when(it){
-                is Result.Failure -> {
-                    assertNotNull(it.message)
-                    assertEquals("error", it.message)
-                }
-                else -> {}
-            }
-        }
+
+        val actual = loginViewModel.loginUser.getOrAwaitValue()
+
+        verify(fakeRepository).loginUser(email, "salah")
+        assertNotNull(actual)
+        assertTrue(actual is Result.Failure)
+        assertEquals("error", (actual as Result.Failure).message)
     }
 
     @Test
@@ -87,14 +84,12 @@ class LoginViewModelTest {
         `when`(fakeRepository.loginUser("", "")).thenReturn(expected.value)
 
         loginViewModel.loginUser("", "")
-        loginViewModel.loginUser.observeForever {
-            when(it){
-                is Result.Failure -> {
-                    assertNotNull(it.message)
-                    assertEquals("error", it.message)
-                }
-                else -> {}
-            }
-        }
+
+        val actual = loginViewModel.loginUser.getOrAwaitValue()
+
+        verify(fakeRepository).loginUser("", "")
+        assertNotNull(actual)
+        assertTrue(actual is Result.Failure)
+        assertEquals("error", (actual as Result.Failure).message)
     }
 }

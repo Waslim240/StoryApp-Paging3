@@ -14,9 +14,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 
 @ExperimentalCoroutinesApi
@@ -35,7 +33,7 @@ class UserTokenViewModelTest {
 
     @Before
     fun setup() {
-        fakeRepository = Mockito.mock(UserTokenRepository::class.java)
+        fakeRepository = mock(UserTokenRepository::class.java)
         userTokenViewModel = UserTokenViewModel(fakeRepository)
     }
 
@@ -47,15 +45,16 @@ class UserTokenViewModelTest {
 
     @Test
     fun `get Token Success`() {
-        val actual = MutableLiveData<String>()
-        actual.value = token
+        val expected = MutableLiveData<String>()
+        expected.value = token
 
-        `when`(fakeRepository.getToken()).thenReturn(actual.asFlow())
-        userTokenViewModel.getToken().getOrAwaitValue()
+        `when`(fakeRepository.getToken()).thenReturn(expected.asFlow())
+
+        val actual = userTokenViewModel.getToken().getOrAwaitValue()
 
         verify(fakeRepository).getToken()
-
-        assertEquals(token, actual.value)
+        assertNotNull(actual)
+        assertEquals(token, actual)
     }
 
     @Test

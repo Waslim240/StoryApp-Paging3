@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.waslim.storyapp.DataDummy
 import com.waslim.storyapp.MainCoroutinesRule
+import com.waslim.storyapp.getOrAwaitValue
 import com.waslim.storyapp.model.Result
 import com.waslim.storyapp.model.response.story.Story
 import com.waslim.storyapp.repository.DetailStoryRepository
@@ -15,8 +16,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
+import org.mockito.Mockito.*
 import org.robolectric.RobolectricTestRunner
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -43,39 +43,35 @@ class DetailViewModelTest {
 
     @Test
     fun `Failed to get story details`() = runTest {
-        val actual = MutableLiveData<Result<Story>>()
-        actual.value = Result.Failure("error")
+        val expected = MutableLiveData<Result<Story>>()
+        expected.value = Result.Failure("error")
 
-        `when`(fakeRepository.getDetailStory("", id)).thenReturn(actual.value)
+        `when`(fakeRepository.getDetailStory("", id)).thenReturn(expected.value)
 
         detailStoryViewModel.getDetailStory("", id )
-        detailStoryViewModel.detailStories.observeForever {
-            when(it) {
-                is Result.Failure -> {
-                    assertNotNull(it.message)
-                    assertEquals("error", it.message)
-                }
-                else -> {}
-            }
-        }
+
+        val actual = detailStoryViewModel.detailStories.getOrAwaitValue()
+
+        verify(fakeRepository).getDetailStory("", id)
+        assertNotNull(actual)
+        assertTrue(actual is Result.Failure)
+        assertEquals("error", (actual as Result.Failure).message)
     }
 
     @Test
-    fun `Success to get detail story`() = runTest {
-        val actual = MutableLiveData<Result<Story>>()
-        actual.value = Result.Success(dataDummy)
+    fun `Success to get story details`() = runTest {
+        val expected = MutableLiveData<Result<Story>>()
+        expected.value = Result.Success(dataDummy)
 
-        `when`(fakeRepository.getDetailStory(token, id)).thenReturn(actual.value)
+        `when`(fakeRepository.getDetailStory(token, id)).thenReturn(expected.value)
 
         detailStoryViewModel.getDetailStory(token, id )
-        detailStoryViewModel.detailStories.observeForever {
-            when(it) {
-                is Result.Success -> {
-                    assertNotNull(it.data)
-                    assertEquals("error", it.data)
-                }
-                else -> {}
-            }
-        }
+
+        val actual = detailStoryViewModel.detailStories.getOrAwaitValue()
+
+        verify(fakeRepository).getDetailStory(token, id)
+        assertNotNull(actual)
+        assertTrue(actual is Result.Success)
+        assertEquals(dataDummy, (actual as Result.Success).data)
     }
 }
