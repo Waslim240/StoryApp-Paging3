@@ -256,45 +256,49 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun uploadStory() {
-        val file = reduceFileImage(getFile as File)
-
-        val description = binding.tvDescriptionAdd.text.toString().toRequestBody("text/plain".toMediaType())
-        val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-        val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-            "photo",
-            file.name,
-            requestImageFile
-        )
-        val lat = myLocation?.latitude.toString().toRequestBody("text/plain".toMediaType())
-        val lon = myLocation?.longitude.toString().toRequestBody("text/plain".toMediaType())
-
         when {
-            myLocation != null && getFile != null && binding.tvDescriptionAdd.text.toString().isNotEmpty() ->
-                userTokenViewModel.getToken().observe(this) { token ->
-                when {
-                    token != "" -> addStoryViewModel.addNewStoryWithLocation(
-                        Constants.BEARER + token,
-                        imageMultipart,
-                        description,
-                        lat,
-                        lon
-                    )
-                    else -> showToast(getString(R.string.un_authorization))
-                }
-            }
-            myLocation == null && getFile != null && binding.tvDescriptionAdd.text.toString().isNotEmpty() ->
-                userTokenViewModel.getToken().observe(this) { token ->
-                when {
-                    token != "" -> addStoryViewModel.addNewStory(
-                        Constants.BEARER + token,
-                        imageMultipart,
-                        description
-                    )
-                    else -> showToast(getString(R.string.un_authorization))
-                }
-            }
-            binding.tvDescriptionAdd.text.toString().isEmpty() -> showToast(getString(R.string.deskripsi_harus_isi))
             getFile == null -> showToast(getString(R.string.gambar_harus_ada))
+            binding.tvDescriptionAdd.text.toString().isEmpty() -> showToast(getString(R.string.deskripsi_harus_isi))
+            else -> {
+                val file = reduceFileImage(getFile as File)
+
+                val description = binding.tvDescriptionAdd.text.toString().toRequestBody("text/plain".toMediaType())
+                val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                    "photo",
+                    file.name,
+                    requestImageFile
+                )
+                val lat = myLocation?.latitude.toString().toRequestBody("text/plain".toMediaType())
+                val lon = myLocation?.longitude.toString().toRequestBody("text/plain".toMediaType())
+
+                when {
+                    myLocation != null && getFile != null && binding.tvDescriptionAdd.text.toString().isNotEmpty() ->
+                        userTokenViewModel.getToken().observe(this) { token ->
+                            when {
+                                token != "" -> addStoryViewModel.addNewStoryWithLocation(
+                                    Constants.BEARER + token,
+                                    imageMultipart,
+                                    description,
+                                    lat,
+                                    lon
+                                )
+                                else -> showToast(getString(R.string.un_authorization))
+                            }
+                        }
+                    myLocation == null && getFile != null && binding.tvDescriptionAdd.text.toString().isNotEmpty() ->
+                        userTokenViewModel.getToken().observe(this) { token ->
+                            when {
+                                token != "" -> addStoryViewModel.addNewStory(
+                                    Constants.BEARER + token,
+                                    imageMultipart,
+                                    description
+                                )
+                                else -> showToast(getString(R.string.un_authorization))
+                            }
+                        }
+                }
+            }
         }
     }
 
