@@ -16,90 +16,89 @@ Skenario Test Repository:
 Skenario Test View Model:
 1. Login View Model Test
  a. Ketika proses login berhasil
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi loginUser dari class LoginRepository terpanggil
     - Memastikan data tidak null
     - Memastikan mengembalikan Result.Success
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
  b. Ketika proses login gagal karena email atau password salah
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi loginUser dari class LoginRepository terpanggil
     - Memastikan data tidak null
     - Memastikan mengembalikan Result.Failure
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
  c. Ketika proses login gagal karena email atau password kosong
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi loginUser dari class LoginRepository terpanggil
     - Memastikan data tidak null
     - Memastikan mengembalikan Result.Failure
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
 
 2. Register View Model Test:
  a. Ketika proses register berhasil
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi registerUser dari class RegisterRepository terpanggil
     - Memastikan data tidak null
     - Memastikan mengembalikan Result.Success
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
  b. Ketika proses register gagal
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi registerUser dari class RegisterRepository terpanggil
     - Memastikan data tidak null
     - Memastikan mengembalikan Result.Failure
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
 
 3. Add Story View Model Test:
  a. Ketika proses menambahkan story baru berhasil
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi addNewStory dari class AddStoryRepository terpanggil
     - Memastikan data tidak null
     - Memastikan mengembalikan Result.Success
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
  b. Ketika proses menambahkan story baru dengan lokasi berhasil
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi addNewStoryWithLocation dari class AddStoryRepository terpanggil
     - Memastikan data tidak null
     - Memastikan mengembalikan Result.Success
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
 
 4. Detail View Model Test:
  a. Ketika proses mengambil data detail berhasil
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi getDetailStory dari class DetailStoryRepository terpanggil
     - Memastikan data tidak null
     - Memastikan mengembalikan Result.Success
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
  b. Ketika proses mengambil data detail gagal
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi getDetailStory dari class DetailStoryRepository terpanggil
     - Memastikan data tidak null
     - Memastikan mengembalikan Result.Failure
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
 
 5. Maps View Model Test:
  a. Ketika proses mengambil data story dengan lokasi berhasil
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi getStoryWithLocation dari class MapsRepository terpanggil
     - Memastikan data tidak null
     - Memastikan mengembalikan Result.Success
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
  b. Ketika proses mengambil data story dengan lokasi gagal
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi getStoryWithLocation dari class MapsRepository terpanggil
     - Memastikan data tidak null
     - Memastikan mengembalikan Result.Failure
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
 
 6. Home View Model Test:
- a. Ketika proses mengambil data story dengan paging3 berhasil
-    - Memastikan suatu fungsi terpanggil
+ a. Ketika proses mengambil data story dengan paging berhasil
+    - Memastikan suatu fungsi getStoryPagination dari class HomeRepository terpanggil
     - Memastikan data tidak null
-    - Memastikan mengembalikan Result.Success
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
 
 7. User Token View Model Test:
  a. Ketika proses menyimpan data token user
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi setToken dari class UserTokenRepository terpanggil
  b. Ketika proses berhasil mengambil data token user
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi getToken dari class UserTokenRepository terpanggil
     - Memastikan data tidak null
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan
  c. Ketika proses berhasil menghapus data token user
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi removeToken dari class UserTokenRepository terpanggil
 
 8. Dark Setting View Model Test:
  a. Ketika proses berhasil menyimpan data mode dark
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi setThemeSetting dari class DarkModeSettingRepository terpanggil
  b. Ketika proses berhasil mengambil data mode dark
-    - Memastikan suatu fungsi terpanggil
+    - Memastikan suatu fungsi getThemeSetting dari class DarkModeSettingRepository terpanggil
     - Memastikan data tidak null
-    - Memastikan data sesuai yang diharapkan
+    - Memastikan jumlah data sesuai dengan yang diharapkan

@@ -43,7 +43,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `Get story success`() = runTest {
+    fun `Get story with pagination successfully`() = runTest {
         val data: PagingData<Story> = StoryPagingTest.snapshot(dummyStory)
         val expected = MutableLiveData<PagingData<Story>>()
         expected.value = data
